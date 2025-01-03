@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>10대 독립운동가 코스 지도</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #2C3E50;
+    }
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+    .back-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+    /* 로고 스타일 추가 */
+    #footer-logo {
+      display: block;
+      margin: 30px auto;
+      width: 150px; /* 이미지 크기 조정 */
+      height: auto; /* 비율에 맞게 높이를 자동으로 설정 */
+    }
+  </style>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>10대 독립운동가 코스</h1>
+  
+  <!-- 지도 표시 -->
+  <div id="map"></div>
+
+  <!-- 뒤로 가기 버튼 -->
+  <button class="back-button" onclick="location.href='index.html'">메인 페이지</button>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // 지도 생성
+    var map = L.map('map').setView([37.5665, 126.9780], 12); // 서울 중심 좌표로 설정
+
+    // OpenStreetMap 타일 추가
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // 10대 독립운동가 관련 장소와 좌표 설정
+    var locations = [
+      {
+        name: "삼일운동 기념관",
+        description: "삼일운동을 기념하는 중요한 장소입니다.",
+        lat: 37.5765,
+        lon: 126.9977
+      },
+      {
+        name: "인천상륙작전 기념관",
+        description: "10대 독립운동가들이 참여한 인천 지역의 독립운동 활동을 기념하는 장소입니다.",
+        lat: 37.4772,
+        lon: 126.6170
+      },
+      {
+        name: "서울 한성백제박물관",
+        description: "10대 독립운동가들이 활동했던 서울의 역사적 장소입니다.",
+        lat: 37.5267,
+        lon: 127.0205
+      },
+      {
+        name: "동대문 역사문화공원",
+        description: "10대 독립운동가들이 참여한 서울의 중요한 역사적 장소입니다.",
+        lat: 37.5661,
+        lon: 127.0092
+      },
+      {
+        name: "경기도 평택 독립기념관",
+        description: "평택에서의 10대 독립운동가들의 활동을 기념하는 장소입니다.",
+        lat: 37.0038,
+        lon: 127.1305
+      }
+    ];
+
+    // 각 장소에 마커 추가
+    locations.forEach(function(location) {
+      var marker = L.marker([location.lat, location.lon]).addTo(map);
+      marker.bindPopup("<b>" + location.name + "</b><br>" + location.description);
+    });
+  </script>
+  
+  <!-- 하단에 로고 이미지 추가 -->
+  <img src="https://i.postimg.cc/4NFxzhGQ/logo.png" alt="로고" id="footer-logo" />
+</body>
+</html>

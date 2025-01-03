@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>독립운동가 관광 코스</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #2C3E50;
+    }
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .course-button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 300px;
+    }
+    .course-button:hover {
+      background-color: #2980b9;
+    }
+    /* 하단 이미지 스타일 */
+    #footer-logo {
+      display: block;
+      margin: 30px auto;
+      width: 150px; /* 이미지 크기 조정 */
+      height: auto; /* 비율에 맞게 높이를 자동으로 설정 */
+    }
+  </style>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>독립운동가 관광 코스</h1>
+  <div class="course-list">
+    <button class="course-button" onclick="location.href='course1.html'">10대 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course2.html'">여성 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course3.html'">학생 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course4.html'">종교인 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course5.html'">민족 지도자 코스</button>
+    <button class="course-button" onclick="location.href='course6.html'">외국인 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course7.html'">노동자 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='course8.html'">예술인 독립운동가 코스</button>
+    <button class="course-button" onclick="location.href='tour_filter_event.html'">필터 사용하고 SNS 인증하기</button>
+    <button class="course-button" onclick="location.href='review.html'">응원 댓글 남기기</button>
+  </div>
+
+  <!-- 하단에 로고 이미지 추가 -->
+  <img src="https://i.postimg.cc/4NFxzhGQ/logo.png" alt="로고" id="footer-logo" />
+</body>
+</html>
+
+

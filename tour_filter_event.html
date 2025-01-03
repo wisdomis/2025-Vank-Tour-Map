@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>광복절 80주년 기념 캠페인</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1, h2 {
+      text-align: center;
+      margin: 20px;
+      color: #2C3E50;
+    }
+    .container {
+      padding: 20px;
+    }
+    .step {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+    .step h3 {
+      margin: 0 0 10px;
+      color: #3498db;
+    }
+    button {
+      display: block;
+      width: 80%;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .share-btn {
+      margin-top: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>광복절 80주년 기념 캠페인</h1>
+  <h2>필터를 사용하고 SNS에 공유하세요!</h2>
+
+  <div class="container">
+    <!-- 캠페인 단계 안내 -->
+    <div class="step">
+      <h3>1단계: 필터 체험하기</h3>
+      <p>아래 버튼을 클릭해 인스타그램 필터를 열고, 장소에서 사진을 찍어보세요!</p>
+      <button onclick="openInstagramFilter()">필터 사용하기</button>
+    </div>
+
+    <div class="step">
+      <h3>2단계: 사진 촬영 및 SNS 업로드</h3>
+      <p>필터를 이용해 촬영한 사진을 해시태그와 함께 SNS에 공유하세요!</p>
+      <p><strong>#광복절80주년 #독립관광코스투어</strong></p>
+    </div>
+
+    <div class="step">
+      <h3>3단계: 인증 남기기</h3>
+      <p>사진 링크와 응원글을 남겨보세요!</p>
+      <textarea id="reviewText" placeholder="SNS 링크 또는 응원글을 남겨주세요..." rows="5" style="width: 100%;"></textarea>
+      <button onclick="submitReview()">응원글 남기기</button>
+    </div>
+  </div>
+
+  <div id="reviewList" class="container">
+    <h2>응원글 보기</h2>
+  </div>
+
+  <script>
+    // 필터 열기
+    function openInstagramFilter() {
+      window.open('https://www.instagram.com/ar/585894564081515', '_blank');
+    }
+
+    // 응원글 남기기
+    function submitReview() {
+      const reviewText = document.getElementById('reviewText').value.trim();
+      if (!reviewText) {
+        alert('SNS 링크 또는 응원글을 입력하세요.');
+        return;
+      }
+
+      // 저장
+      let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.push(reviewText);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+
+      // 입력값 초기화 및 리뷰 표시 업데이트
+      document.getElementById('reviewText').value = '';
+      alert('응원글이 등록되었습니다!');
+      displayReviews();
+    }
+
+    // 응원글 표시
+    function displayReviews() {
+      const reviewList = document.getElementById('reviewList');
+      const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviewList.innerHTML = '<h2>응원글 보기</h2>';
+
+      reviews.forEach((review, index) => {
+        const reviewDiv = document.createElement('div');
+        reviewDiv.classList.add('step');
+        reviewDiv.textContent = review;
+
+        // 삭제 버튼 추가
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '삭제';
+        deleteButton.style.marginTop = '10px';
+        deleteButton.onclick = () => deleteReview(index);
+        reviewDiv.appendChild(deleteButton);
+
+        reviewList.appendChild(reviewDiv);
+      });
+    }
+
+    // 응원글 삭제 기능
+    function deleteReview(index) {
+      let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+      reviews.splice(index, 1);
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      displayReviews();
+    }
+
+    // 페이지 로드 시 리뷰 표시
+    window.onload = displayReviews;
+  </script>
+</body>
+</html>

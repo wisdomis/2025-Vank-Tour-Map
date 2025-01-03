@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>예술인 독립운동가 코스</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      color: #2C3E50;
+    }
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+    .back-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+    }
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+    #footer-logo {
+      display: block;
+      margin: 30px auto;
+      width: 150px;
+      height: auto;
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>예술인 독립운동가 코스</h1>
+
+  <div id="map"></div>
+  <button class="back-button" onclick="location.href='index.html'">메인 페이지</button>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([36.3504, 127.3845], 7);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var locations = [
+      {
+        name: "이응노 미술관 (대전)",
+        description: "한국 근대 미술의 거장이자 독립운동에 기여한 이응노 화백을 기념하는 미술관입니다.",
+        lat: 36.3745,
+        lon: 127.3883
+      },
+      {
+        name: "국립현대미술관 (서울)",
+        description: "한국 예술인들이 독립운동과 문화 예술 발전에 기여한 발자취를 전시하고 있는 미술관입니다.",
+        lat: 37.5796,
+        lon: 126.9770
+      },
+      {
+        name: "서대문형무소 역사관 (서울)",
+        description: "예술인 독립운동가들이 수감되며 독립 의지를 불태운 역사의 장소입니다.",
+        lat: 37.5743,
+        lon: 126.9576
+      },
+      {
+        name: "북촌 한옥마을 (서울)",
+        description: "예술인 독립운동가들이 문화예술을 통해 독립의식을 표현했던 역사적 공간입니다.",
+        lat: 37.5826,
+        lon: 126.9830
+      },
+      {
+        name: "안양 예술공원 (안양)",
+        description: "예술인 독립운동가들의 창작과 독립운동 정신을 기념하는 문화 공간입니다.",
+        lat: 37.4213,
+        lon: 126.9336
+      }
+    ];
+
+    locations.forEach(function(location) {
+      var marker = L.marker([location.lat, location.lon]).addTo(map);
+      marker.bindPopup("<b>" + location.name + "</b><br>" + location.description);
+    });
+  </script>
+
+  <img src="https://i.postimg.cc/4NFxzhGQ/logo.png" alt="로고" id="footer-logo" />
+</body>
+</html>

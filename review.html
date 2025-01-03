@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>응원글 남기기</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin: 20px 0;
+      color: #2C3E50;
+    }
+    .write-review {
+      margin-top: 30px;
+      text-align: center;
+    }
+    textarea {
+      width: 80%;
+      height: 150px;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    #footer-logo {
+      display: block;
+      margin: 30px auto;
+      width: 150px;
+      height: auto;
+    }
+    .reviews {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .review {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .delete-button {
+      background-color: #e74c3c;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .delete-button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <br>
+  <h2>응원글을 남겨주세요!</h2>
+
+  <div class="write-review">
+    <textarea id="reviewText" placeholder="응원글을 작성해 주세요..."></textarea><br>  <br>
+    <button onclick="submitReview()">응원글 남기기</button>
+    <button class="back-button" onclick="location.href='index.html'">메인 페이지</button>
+  </div>
+
+  <div class="reviews">
+    <h2>응원글 보기</h2>
+    <div id="reviewList"></div>
+  </div>
+
+  <script>
+    // 응원글 제출 함수
+    function submitReview() {
+      var review = document.getElementById('reviewText').value;
+      if (review) {
+        alert("감사합니다! 응원글이 남겨졌습니다.");
+        var reviews = JSON.parse(localStorage.getItem("reviews")) || []; // 기존 리뷰 불러오기
+        reviews.push(review); // 새 리뷰 추가
+        localStorage.setItem("reviews", JSON.stringify(reviews)); // 리뷰 저장
+        document.getElementById('reviewText').value = ''; // 텍스트 영역 초기화
+        displayReviews(); // 리뷰 표시 업데이트
+      } else {
+        alert("응원글을 작성해 주세요.");
+      }
+    }
+
+    // 리뷰 삭제 함수
+    function deleteReview(index) {
+      var reviews = JSON.parse(localStorage.getItem("reviews")) || []; // 저장된 리뷰 불러오기
+      reviews.splice(index, 1); // 해당 리뷰 삭제
+      localStorage.setItem("reviews", JSON.stringify(reviews)); // 삭제된 리뷰 저장
+      displayReviews(); // 리뷰 목록 다시 표시
+    }
+
+    // 페이지 로드 시 리뷰 표시 함수
+    function displayReviews() {
+      var reviews = JSON.parse(localStorage.getItem("reviews")) || []; // 저장된 리뷰 불러오기
+      var reviewList = document.getElementById('reviewList');
+      reviewList.innerHTML = ""; // 기존 리뷰 초기화
+      reviews.forEach(function(review, index) {
+        var reviewDiv = document.createElement('div');
+        reviewDiv.classList.add('review');
+        
+        // 리뷰 내용
+        var reviewText = document.createElement('span');
+        reviewText.textContent = review;
+        reviewDiv.appendChild(reviewText);
+
+        // 삭제 버튼
+        var deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.textContent = "삭제";
+        deleteButton.onclick = function() {
+          deleteReview(index); // 삭제 함수 호출
+        };
+        reviewDiv.appendChild(deleteButton);
+
+        reviewList.appendChild(reviewDiv);
+      });
+    }
+
+    // 페이지 로드 시 리뷰 표시
+    window.onload = displayReviews;
+  </script>
+
+  <img src="https://i.postimg.cc/4NFxzhGQ/logo.png" alt="로고" id="footer-logo" />
+</body>
+</html>
